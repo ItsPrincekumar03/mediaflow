@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Dashboard - MediaFlow</title>
+    <script src='js/api.js'></script>
+    <script src='js/auth.js'></script>
+</head>
+<body>
+    <h2>Dashboard</h2>
+    <p>Welcome, <span id='username'></span></p>
+    <a href='profile.html'>Profile</a>
+    <button id='logout-btn'>Logout</button>
+    <script>
+        window.addEventListener('load', () => {
+            if (window.currentUser) {
+                document.getElementById('username').innerText = window.currentUser.name;
+            }
+        });
+    </script>
+</body>
+</html>

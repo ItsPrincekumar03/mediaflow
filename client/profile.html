@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Profile - MediaFlow</title>
+    <script src='js/api.js'></script>
+    <script src='js/auth.js'></script>
+</head>
+<body>
+    <h2>Profile</h2>
+    <form id='profile-form'>
+        <input type='text' id='name' placeholder='Name' required>
+        <button type='submit'>Update Name</button>
+    </form>
+    <div id='profile-msg'></div>
+    <a href='dashboard.html'>Dashboard</a>
+    <script>
+        window.addEventListener('load', () => {
+            if (window.currentUser) {
+                document.getElementById('name').value = window.currentUser.name;
+            }
+        });
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            try {
+                await window.api.updateProfile({ name });
+                document.getElementById('profile-msg').innerText = 'Profile updated';
+            } catch (err) {
+                document.getElementById('profile-msg').innerText = err.message;
+                document.getElementById('profile-msg').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
