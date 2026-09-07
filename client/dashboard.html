@@ -12,12 +12,6 @@
     <p>Welcome, <span id='username'></span></p>
     <a href='profile.html'>Profile</a>
     <button id='logout-btn'>Logout</button>
-    <script>
-        window.addEventListener('load', () => {
-            if (window.currentUser) {
-                document.getElementById('username').innerText = window.currentUser.name;
-            }
-        });
-    </script>
+    <script src='js/dashboard.js'></script>
 </body>
 </html>

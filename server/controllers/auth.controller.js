@@ -64,11 +64,38 @@ class AuthController {
     }
 
     async forgotPassword(req, res, next) {
-        res.json({ success: true, message: 'If the email is registered, a reset link will be sent.' });
+        try {
+            const { email } = req.body;
+            if (!email) return res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Email required' } });
+            
+            const token = await authService.forgotPassword(email.toLowerCase());
+            
+            let msg = 'If the email is registered, a reset link will be sent.';
+            let devToken = undefined;
+            if (token && process.env.NODE_ENV === 'development') {
+                const link = `http://localhost:${process.env.PORT || 5005}/reset-password.html?token=${token}`;
+                console.log(`\n[DEVELOPMENT] Password Reset Link: ${link}\n`);
+                devToken = token; // Expose for e2e testing
+            }
+            
+            res.json({ success: true, message: msg, token: devToken });
+        } catch (error) {
+            next(error);
+        }
     }
 
     async resetPassword(req, res, next) {
-        res.json({ success: true, message: 'Password reset successfully (mocked for now)' });
+        try {
+            const { token, newPassword } = req.body;
+            if (!token || !newPassword || newPassword.length < 6) {
+                return res.status(400).json({ success: false, error: { code: 'VALIDATION_ERROR', message: 'Invalid token or password' } });
+            }
+            
+            await authService.resetPassword(token, newPassword);
+            res.json({ success: true, message: 'Password reset successfully' });
+        } catch (error) {
+            next(error);
+        }
     }
 }
 

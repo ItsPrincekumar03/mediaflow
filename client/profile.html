@@ -14,24 +14,15 @@
         <button type='submit'>Update Name</button>
     </form>
     <div id='profile-msg'></div>
+    
+    <h3>Change Password</h3>
+    <form id='password-form'>
+        <input type='password' id='current-password' placeholder='Current Password' required>
+        <input type='password' id='new-password' placeholder='New Password' required>
+        <button type='submit'>Change Password</button>
+    </form>
+    <div id='password-msg'></div>
     <a href='dashboard.html'>Dashboard</a>
-    <script>
-        window.addEventListener('load', () => {
-            if (window.currentUser) {
-                document.getElementById('name').value = window.currentUser.name;
-            }
-        });
-        document.getElementById('profile-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            try {
-                await window.api.updateProfile({ name });
-                document.getElementById('profile-msg').innerText = 'Profile updated';
-            } catch (err) {
-                document.getElementById('profile-msg').innerText = err.message;
-                document.getElementById('profile-msg').style.color = 'red';
-            }
-        });
-    </script>
+    <script src='js/profile.js'></script>
 </body>
 </html>

@@ -16,18 +16,5 @@
     </form>
     <div id='error-msg' style='color: red;'></div>
     <a href='register.html'>Register</a>
-    <script>
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            try {
-                await window.api.login(email, password);
-                window.location.href = '/dashboard.html';
-            } catch (err) {
-                document.getElementById('error-msg').innerText = err.message;
-            }
-        });
-    </script>
 </body>
 </html>

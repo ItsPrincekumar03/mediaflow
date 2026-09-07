@@ -28,5 +28,7 @@ window.api = {
     getSession: () => fetchAPI('/auth/session'),
     getProfile: () => fetchAPI('/users/me'),
     updateProfile: (data) => fetchAPI('/users/me', { method: 'PATCH', body: data }),
-    changePassword: (currentPassword, newPassword) => fetchAPI('/auth/change-password', { method: 'POST', body: { currentPassword, newPassword } })
+    changePassword: (currentPassword, newPassword) => fetchAPI('/auth/change-password', { method: 'POST', body: { currentPassword, newPassword } }),
+    forgotPassword: (email) => fetchAPI('/auth/forgot-password', { method: 'POST', body: { email } }),
+    resetPassword: (token, newPassword) => fetchAPI('/auth/reset-password', { method: 'POST', body: { token, newPassword } })
 };
